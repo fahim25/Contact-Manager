@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="user/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<section class="py-4 mt-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm-8 col-md-6 col-lg-4">
+                <div class=" card content text-center bg-transparent shadow p-4 mt-5">
+                    <div th:if="${contact}"  class="card-inner">
+
+                        <div th:if="${session.message}" th:classappend="${session.message.types}"  class="text-center p-2 alert-dismissible fade show alert">
+                            <span th:text="${session.message.content}"></span>
+                            <th:block th:text="${#session.removeAttribute('message')}">
+
+                            </th:block>
+                            <button type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+
+                        <h4 class="mb-4 text-success">Details of <span class="fst-italic "
+                            th:text="${contact.cName} + ' ' + ${contact.cSurName}"></span> !</h4>
+                        <img class="user-pic-alt" th:src="@{'/images/user/'+${contact.cImageUrl}}" alt="pic">
+
+                        <div class="card-body border mt-3">
+                            <div class="table-responsive">
+                                <table class="table border">
+                                    <thead>
+                                        <tr>
+                                            <th scope="row">ID</th>
+                                            <th th:text="${'SCM-'+contact.cId}" scope="row"></th>
+                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Email</th>
+                                                <td>
+                                                    <span th:text="${contact.cEmail}"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Mobile</th>
+                                                <td th:text="${contact.cMobile}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Work</th>
+                                                <td th:text="${contact.cWork}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </thead>
+                                </table>
+                                <div class="card-text">
+                                    <p th:text="${contact.cAbout}"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-2">
+                            <form class="w-100" th:action="@{'/user/update/'+${contact.cId}}" method="post">
+                                <button type="submit" class="btn btn-sm btn-warning w-100">Edit</button>
+                            </form>
+                            <button th:onclick="|deleteContent(${contact.cId})|" class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                    </div>
+                    <div th:unless="${contact}" class="alert alert-danger">
+                        You dont have permission!
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

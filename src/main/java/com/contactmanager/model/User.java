@@ -26,20 +26,20 @@ public class User {
     private String role;
     private boolean isActive;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "uId=" + uId +
-                ", uName='" + uName + '\'' +
-                ", uEmail='" + uEmail + '\'' +
-                ", uPassword='" + uPassword + '\'' +
-                ", role='" + role + '\'' +
-                ", isActive=" + isActive +
-                ", contactList=" + contactList +
-                ", uImageUrl='" + uImageUrl + '\'' +
-                ", uAbout='" + uAbout + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "uId=" + uId +
+//                ", uName='" + uName + '\'' +
+//                ", uEmail='" + uEmail + '\'' +
+//                ", uPassword='" + uPassword + '\'' +
+//                ", role='" + role + '\'' +
+//                ", isActive=" + isActive +
+//                ", contactList=" + contactList +
+//                ", uImageUrl='" + uImageUrl + '\'' +
+//                ", uAbout='" + uAbout + '\'' +
+//                '}';
+//    }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Contact> contactList = new ArrayList<>();

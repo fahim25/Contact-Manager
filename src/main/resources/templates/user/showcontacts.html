@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="user/base::layout(~{::section})">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+        <section class="py-5">
+            <div class="container py-5">
+                <div class="row justify-content-center align-items-center">
+
+                    <div class="col-lg-8 col-md-10">
+                        <div class="card">
+                            <div class="card-title text-center">
+                                <h3>Your contacts list.</h3>
+
+                                <div th:if="${session.message}" th:classappend="${session.message.types}"  class="text-center alert-dismissible fade show alert">
+                                    <h3 th:text="${session.message.content}"></h3>
+                                    <th:block th:text="${#session.removeAttribute('message')}">
+
+                                    </th:block>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+
+                            <div class="card-body border">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID No &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Avatar</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Mobile</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="c: ${contacts}">
+                                                <th th:text="${'SCM-'+c.cId}" scope="row"></th>
+                                                <td>
+                                                    <a class="fz-4" th:href="@{'/user/contact/'+${c.cId}}">
+                                                        <span th:text="${c.cEmail}"></span>
+                                                    </a>
+                                                </td>
+                                                <td><img class="user-pic" th:src="@{'/images/user/'+${c.cImageUrl}}" alt="pic"></td>
+                                                <td th:text="${c.cName + ' ' +c.cSurName }"></td>
+                                                <td th:text="${c.cMobile}"></td>
+                                                <td class="d-flex">
+
+                                                    <form th:action="@{'/user/update/'+${c.cId}}" method="post">
+                                                        <button type="submit" class="btn btn-sm btn-warning me-1">Edit</button>
+                                                    </form>
+
+                                                    <a  th:onclick="|deleteContent(${c.cId})|" class="btn btn-sm btn-danger">Delete</a>
+<!--                                                    <a th:href="@{'/user/delete/'+${c.cId}}" class="btn btn-sm btn-danger">Delete</a>-->
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            <li th:if="${currentPage != 0}"  class="page-item"><a class="page-link" th:href="@{'/user/showcontacts/'+${currentPage-1}}" href="#">Previous</a></li>
+
+                                            <li th:classappend="${currentPage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1, totalPage)}" class="page-item">
+                                                <a class="page-link" th:href="@{'/user/showcontacts/'+${i-1}}" href="#"><span th:text="${i}"></span></a>
+                                            </li>
+
+                                            <li th:if="${currentPage+1 != totalPage}" class="page-item"><a class="page-link" th:href="@{'/user/showcontacts/'+${currentPage+1}}" href="#">Next</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>

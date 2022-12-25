@@ -1,58 +1,97 @@
 .bg-main{
-    background-color: #6e8c8b;
+        background-color: #6e8c8b;
 }
 
 .signup{
-    background-color: #7e9ba3;
-    height: 100vh;
+        background-color: #c2c8c8;
+        height: 100vh;
 }
 
 .banner{
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url("../images/connected.png") center;
-    background-size: cover;
-    color: white;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url("../images/connected.png") center;
+        background-size: cover;
+        color: white;
 }
 
 
 .bg{
-    background: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.9)),url("../images/registered.png") center;
-    background-size: cover;
-    color: white;
+        background: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.9)),url("../images/registered.png") center no-repeat;
+        background-size: cover;
+        color: white;
+}
+
+.bg-alt{
+        background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url("../images/registered.png") center no-repeat;
+        background-size: contain;
+        color: white;
 }
 
 
 .banner-content{
-    display: flex;
-    align-items: center;
-    height: 90vh;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    align-content: center;
+        display: flex;
+        align-items: center;
+        height: 90vh;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        align-content: center;
 }
 
 .btn{
-    padding: 12px 26px;
+        padding: 6px 16px;
+}
+
+
+a{
+        text-decoration: none;
+        color: #678d8c;
 }
 
 .btn-main{
-    background-color: #79907b;
-    color: #fafafa;
-    text-transform: uppercase;
-    border-radius: 33px;
+        background-color: #79907b;
+        color: #fafafa;
+        text-transform: uppercase;
+        border-radius: 33px;
 }
 
 .btn-main:hover{
-    background-color: #5b6d5c;
-    color: #fafafa;
-    transform: translate(1,1);
+        background-color: #5b6d5c;
+        color: #fafafa;
+        transform: translate(1,1);
 }
 
 .card{
-    border: 0 solid rgba(0,0,0,.125);
+        border: 0 solid rgba(0,0,0,.125);
 }
 
 .no-resize{
-    resize: none;
+        resize: none;
+}
+.cascading-right {
+        margin-right: -50px;
+}
+
+.user-pic{
+        width: 30px;
+        height: 30px;
+        border-radius: 33px;
+}
+.user-pic-alt{
+        width: 100px;
+        height: 100px;
+        border-radius: 6px;
+}
+@media (min-width: 991.98px){
+        .user-pic-alt{
+                width: 200px;
+                height: 200px;
+        }
+}
+
+
+@media (max-width: 991.98px) {
+        .cascading-right {
+                margin-right: 0;
+        }
 }

@@ -1,6 +1,7 @@
 package com.contactmanager.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Contact {
@@ -8,18 +9,37 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cId;
+
+//    @NotBlank(message = "Name filed is required!")
     private String cName;
     private String cSurName;
     private String cWork;
     private String cEmail;
+//    @NotBlank(message = "Mobile number is required!")
     private String cMobile;
     private String cImageUrl;
     @Column(length = 1000)
     private String cAbout;
 
-
     @ManyToOne
     private User user;
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "cId=" + cId +
+                ", cName='" + cName + '\'' +
+                ", cSurName='" + cSurName + '\'' +
+                ", cWork='" + cWork + '\'' +
+                ", cEmail='" + cEmail + '\'' +
+                ", cMobile='" + cMobile + '\'' +
+                ", cImageUrl='" + cImageUrl + '\'' +
+                ", cAbout='" + cAbout + '\'' +
+                ", user=" + user +
+                '}';
+    }
+
+
 
     public User getUser() {
         return user;

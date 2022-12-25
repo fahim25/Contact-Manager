@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="user/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card bg-alt bg-white p-md-5 p-2 m-md-5 m-3">
+                    <div class="card-inner">
+                        <h4 class="text-center pb-2">Update  contact's here!</h4>
+
+                        <div th:if="${session.message}"
+                             th:classappend="${'alert-'+session.message.types}"
+                             class="alert text-center" >
+                            <h5 class="text-white" th:text="${session.message.content}"></h5>
+                            <th:block th:text="${#session.removeAttribute('message')}">
+
+                            </th:block>
+                        </div>
+
+                        <form class="row g-3 mt-2 p-2" action="#"
+                              th:object="${contact}"
+                              th:action="@{/user/process-update}"
+                              enctype="multipart/form-data"
+                              method="post">
+
+
+                            <input type="hidden" class="form-control" name="cId"  th:value="${contact.cId}" />
+
+                            <div class="input-group mb-1">
+                                <span class="input-group-text">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="First name" name="cName"
+                                       aria-label="Username" aria-describedby="basic-addon1" th:value="${contact.cName}" required>
+
+                            </div>
+
+
+                            <div class="input-group mb-1">
+                                <span class="input-group-text">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Last name" name="cSurName"
+                                       aria-label="LastName" aria-describedby="basic-addon1" th:value="${contact.cSurName}">
+                            </div>
+
+                            <div class="input-group mb-1">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-mobile"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Mobile Number" name="cMobile"
+                                       aria-label="Number" aria-describedby="basic-addon1" th:value="${contact.cMobile}" required>
+                            </div>
+
+
+                            <div class="input-group mb-1">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-at"></i>
+                                </span>
+                                <input type="email" class="form-control" placeholder="Email" name="cEmail" th:value="${contact.cEmail}"
+                                       aria-label="Email" aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group mb-1">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Work" name="cWork" th:value="${contact.cWork}"
+                                       aria-label="Email" aria-describedby="basic-addon1" required>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea class="form-control no-resize" th:text="${contact.cAbout}" rows="5" placeholder="Description" name="cAbout" id="comment" ></textarea>
+                            </div>
+
+                            <div class="input-group mb-1">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-image"></i>
+                                </span>
+                                <input type="file" class="form-control" name="cImage"
+                                       aria-label="Email" aria-describedby="basic-addon1">
+                            </div>
+
+                            <button type="submit" class="btn btn-main btn-block">Update</button>
+                            <a href="/user/showcontacts/0" class="btn btn-block btn-danger">Reset</a>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

@@ -15,8 +15,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-
         //fetching data from database
         User user = userRepository.getUserByUserName(username);
 
@@ -24,8 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User Name Didn't match!");
         }
 
-        CustomerUserDetails customUserDetails = new CustomerUserDetails(user);
-
+        CustomUserDetails customUserDetails = new CustomUserDetails(user);
 
         return customUserDetails;
     }

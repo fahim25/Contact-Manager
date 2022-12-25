@@ -1,71 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
-    <head>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        <!-- Section: Design Block -->
-        <section class="text-center text-lg-start">
-            <!-- Jumbotron -->
-            <div class="container py-4">
-                <div class="row g-0 align-items-center justify-content-center">
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <div class="card cascading-right" style="background: hsla(0, 0%, 100%, 0.55);
-                                    backdrop-filter: blur(30px);">
-                            <div class="card-body p-5 shadow-5 text-center">
-                                <h2 class="fw-bold mb-5">Please sign in</h2>
-                                <form th:action="@{/cuslogin}" action="#" method="post">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- Section: Design Block -->
+    <section class="text-center text-lg-start py-5 mt-5">
+        <!-- Jumbotron -->
+        <div class="container py-4">
+            <div class="row g-0 align-items-center justify-content-center">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="card cascading-right" style="background: hsla(0, 0%, 100%, 0.55);
+                            backdrop-filter: blur(30px);">
+                        <div class="card-body p-5 shadow-5 text-center">
+                            <h2 class="fw-bold mb-5">Please sign in</h2>
+                            <form th:action="@{/cuslogin}" action="#" method="post">
 
-                                    <div th:if="${param.error}" class="alert alert-danger">
-                                        Invalid Username or Password!
-                                    </div>
-                                    <div th:if="${param.logout}" class="alert alert-success">
-                                        You have been logged out!
-                                    </div>
+                                <div th:if="${param.error}" class="alert alert-danger">
+                                    Invalid Username or Password!
+                                </div>
+                                <div th:if="${param.logout}" class="alert alert-success">
+                                    You have been logged out!
+                                </div>
 
-                                    <!-- Email input -->
-                                    <div class="form-outline mb-4">
-                                        <input type="text" id="username" name="username" class="form-control" />
-                                        <label class="form-label" for="username">User Name</label>
-                                    </div>
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="username" name="username" class="form-control" />
+                                    <label class="form-label" for="username">User Name</label>
+                                </div>
 
-                                    <!-- Password input -->
-                                    <div class="form-outline mb-4">
-                                        <input type="password" id="password" name="password" class="form-control" />
-                                        <label class="form-label" for="password">Password</label>
-                                    </div>
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    <input type="password" id="password" name="password" class="form-control" />
+                                    <label class="form-label" for="password">Password</label>
+                                </div>
 
-                                    <!-- Checkbox -->
-                                    <div class="form-check d-flex justify-content-center mb-4">
-                                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-                                        <label class="form-check-label" for="form2Example33">
-                                            Remember Me
-                                        </label>
-                                    </div>
+                                <!-- Checkbox -->
+                                <div class="form-check d-flex justify-content-center mb-4">
+                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                                    <label class="form-check-label" for="form2Example33">
+                                        Remember Me
+                                    </label>
+                                </div>
 
-                                    <!-- Submit button -->
-                                    <button type="submit" class="btn btn-main btn-primary btn-block mb-4">
-                                        Log In
-                                    </button>
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-main btn-primary btn-block mb-4">
+                                    Log In
+                                </button>
 
-                                    <button href="/signup"  class="btn btn-primary btn-block mb-4">
-                                        Sign Up
-                                    </button>
+                                <button href="/signup"  class="btn btn-primary btn-block mb-4">
+                                    Sign Up
+                                </button>
 
 
-                                </form>
-                            </div>
+                            </form>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" class="w-100 rounded-4 shadow-4"
-                             alt="" />
-                    </div>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" class="w-100 rounded-4 shadow-4"
+                         alt="" />
                 </div>
             </div>
-            <!-- Jumbotron -->
-        </section>
-        <!-- Section: Design Block -->
-    </body>
+        </div>
+        <!-- Jumbotron -->
+    </section>
+    <!-- Section: Design Block -->
+</body>
 </html>

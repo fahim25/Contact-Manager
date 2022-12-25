@@ -23,7 +23,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -55,6 +54,9 @@ public class UserController {
     @RequestMapping("/index")
     public String userDashboard(Model model, Principal principal){
 
+
+
+
         return "user/dashboard";
     }
 
@@ -79,7 +81,7 @@ public class UserController {
                                  @RequestParam("cImage")MultipartFile image,
                                  Principal principal,
                                  HttpSession session
-    ){
+                                 ){
 
         try {
 
@@ -123,7 +125,7 @@ public class UserController {
 //            model.addAttribute("contact", contact);
 //            return "user/addcontact";
         }
-        return "user/addcontact";
+            return "user/addcontact";
     }
 
 
@@ -177,29 +179,99 @@ public class UserController {
     }
 
 
+    //Delete
     @GetMapping("/delete/{cId}")
     public String deleteContact(@PathVariable("cId") Integer cId, Model model, Principal principal, HttpSession session){
 
 
-        try {
-            Optional<Contact> contactOptional = this.contactRepository.findById(cId);
-            Contact contact = contactOptional.get();
-            String userName = principal.getName();
-            User user = this.userRepository.getUserByUserName(userName);
+       try {
+           Optional<Contact> contactOptional = this.contactRepository.findById(cId);
+           Contact contact = contactOptional.get();
+           String userName = principal.getName();
+           User user = this.userRepository.getUserByUserName(userName);
 
-            if (user.getuId()==contact.getUser().getuId()){
-                this.contactRepository.delete(contact);
-                session.setAttribute("message", new Message("Content deleted successfully!", "alert-success"));
-                return "redirect:/user/showcontacts/0";
+           if (user.getuId()==contact.getUser().getuId()){
+               this.contactRepository.delete(contact);
+               session.setAttribute("message", new Message("Content deleted successfully!", "alert-success"));
+               return "redirect:/user/showcontacts/0";
+           }else {
+               session.setAttribute("message", new Message("You cant access!", "alert-danger"));
+               return "redirect:/user/showcontacts/0";
+           }
+       }catch (Exception e){
+           e.printStackTrace();
+           session.setAttribute("message", new Message("You cant access!", "alert-warning"));
+           return "redirect:/user/showcontacts/0";
+       }
+    }
+
+    //update
+
+
+    @PostMapping("/update/{cId}")
+    public String updateContact(@PathVariable("cId") Integer cId, Model model) {
+
+        model.addAttribute("title", "Update Contact");
+
+
+        Contact contact = this.contactRepository.findById(cId).get();
+
+        model.addAttribute("contact", contact);
+
+        return "user/updatecontact";
+    }
+
+    //update process
+
+    @PostMapping("/process-update")
+    public String updateProcess(@ModelAttribute Contact contact,
+                                @RequestParam("cImage") MultipartFile file,
+                                Model model, HttpSession session, Principal principal)
+    {
+
+        //old contact data
+        Contact oldData = this.contactRepository.findById(contact.getcId()).get();
+
+        try {
+
+            if (!file.isEmpty()){
+
+                //delete old pic
+//                File deleteFile = new ClassPathResource("static/images/user").getFile();
+//                File file1 = new File(deleteFile,oldData.getcImageUrl());
+//                file1.delete();
+
+
+
+                //update new pic
+                File saveFile = new ClassPathResource("static/images/user").getFile();
+
+                Path path = Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
+
+                Files.copy(file.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
+
+                contact.setcImageUrl(file.getOriginalFilename());
+
             }else {
-                session.setAttribute("message", new Message("You cant access!", "alert-danger"));
-                return "redirect:/user/showcontacts/0";
+                contact.setcImageUrl(oldData.getcImageUrl());
             }
+
+            User user = this.userRepository.getUserByUserName(principal.getName());
+
+            contact.setUser(user);
+
+            this.contactRepository.save(contact);
+
+
+            session.setAttribute("message", new Message("You contact is updated!", "alert-success"));
+
+
         }catch (Exception e){
             e.printStackTrace();
-            session.setAttribute("message", new Message("You cant access!", "alert-warning"));
-            return "redirect:/user/showcontacts/0";
         }
+
+
+        return "redirect:/user/contact/"+contact.getcId();
     }
 
 

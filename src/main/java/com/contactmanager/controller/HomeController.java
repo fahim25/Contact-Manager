@@ -4,6 +4,7 @@ import com.contactmanager.helper.Message;
 import com.contactmanager.model.User;
 import com.contactmanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,13 +17,16 @@ import javax.validation.Valid;
 public class HomeController {
 
     @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+
+    @Autowired
     private UserRepository userRepository;
 
     @GetMapping("/home")
     public String home(Model model){
 
         model.addAttribute("title", "Home Page");
-
         return "index";
     }
 
@@ -36,35 +40,29 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/doregister", method = RequestMethod.POST)
-//    @PostMapping("/doregister")
     public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
                                @RequestParam(value = "terms", defaultValue = "false") boolean terms,
                                Model model,
                                HttpSession session){
-
         try {
             if (!terms){
                 System.out.println("You didn't select the checkbox" );
             }
 
             if (bindingResult.hasErrors()){
-
                 model.addAttribute("user", user);
-
-
                 return "signup";
             }
 
-//            user.setuRole("role_user");
+            user.setRole("ROLE_USER");
             user.setActive(true);
+            user.setuPassword(passwordEncoder.encode(user.getuPassword()));
 
             User save = userRepository.save(user);
 
 
             model.addAttribute("user", new User());
-
             session.setAttribute("message", new Message("User Registered Successfully.", "alert-success"));
-
 
         }catch (Exception e){
             e.printStackTrace();
@@ -72,10 +70,19 @@ public class HomeController {
             session.setAttribute("message", new Message("Something Went Wrong", "alert-danger"));
             return "signup";
         }
-
         return "signup";
-
     }
 
+
+
+    //custom login handler
+
+    @GetMapping("/cuslogin")
+    public String customLogin(Model model){
+
+        model.addAttribute("title", "login Page");
+
+        return "login";
+    }
 
 }

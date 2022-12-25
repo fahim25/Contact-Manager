@@ -30,4 +30,3 @@ public class Message {
         this.types = types;
     }
 }
-

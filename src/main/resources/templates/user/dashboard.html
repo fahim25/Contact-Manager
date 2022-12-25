@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="user/base::layout(~{::section})">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+
+        <section class="py-4 mt-5">
+            <div class="container">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-sm-8 col-md-6 col-lg-4">
+                        <div class=" card content text-center bg-transparent shadow p-4 mt-5 border">
+                            <div  class="card-inner">
+
+<!--                                <div th:if="${session.message}" th:classappend="${session.message.types}"  class="text-center p-2 alert-dismissible fade show alert">-->
+<!--                                    <span th:text="${session.message.content}"></span>-->
+<!--                                    <th:block th:text="${#session.removeAttribute('message')}">-->
+
+<!--                                    </th:block>-->
+<!--                                    <button type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></button>-->
+<!--                                </div>-->
+
+
+                                <h4 class="mb-4 text-success">Details of <span class="fst-italic "
+                                                                               th:text="${user.uName}"></span> !</h4>
+                                <img class="user-pic-alt" th:src="@{'/images/user/'+${user.uImageUrl}}" alt="pic">
+
+                                <div class="card-body border mt-3">
+                                    <div class="table-responsive">
+                                        <table class="table border">
+                                            <thead>
+                                            <tr>
+                                                <th scope="row">ID</th>
+                                                <th th:text="${'SCM-'+user.uId}" scope="row"></th>
+                                            </tr>
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row">Email</th>
+                                                <td>
+                                                    <span th:text="${user.uEmail}"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Role</th>
+                                                <td th:text="${user.role}"></td>
+                                            </tr>
+                                            </tbody>
+                                            </thead>
+                                        </table>
+                                        <div class="card-text">
+                                            <p th:text="${user.uAbout}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </body>
+</html>
