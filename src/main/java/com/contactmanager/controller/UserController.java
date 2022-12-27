@@ -5,6 +5,8 @@ import com.contactmanager.model.Contact;
 import com.contactmanager.model.User;
 import com.contactmanager.repository.ContactRepository;
 import com.contactmanager.repository.UserRepository;
+import com.contactmanager.service.ReportServices;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,6 +39,15 @@ public class UserController {
     @Autowired
     private ContactRepository contactRepository;
 
+    @Autowired
+    private ReportServices reportServices;
+
+
+    //get report
+    @GetMapping("report/{format}")
+    public String report(@PathVariable String format) throws FileNotFoundException, JRException {
+        return reportServices.exportReport(format);
+    }
 
 
     //for adding common data
